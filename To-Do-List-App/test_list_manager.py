@@ -15,7 +15,6 @@ class TestListManager(unittest.TestCase):
         to_do_list_tc2 = to_do_list.ToDoList({}, "School", datetime, id)
         list_manager.ListManager.add_list(to_do_list_tc, to_do_list_tc.title)
         list_manager.ListManager.add_list(to_do_list_tc2, to_do_list_tc2.title)
-        list_manager.ListManager.display_lists()
         self.assertEqual(len(list_manager.ListManager.all_lists), 2)
 
 if __name__ == '__main__':

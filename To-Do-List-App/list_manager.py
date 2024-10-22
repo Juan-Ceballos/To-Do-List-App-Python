@@ -11,8 +11,3 @@ class ListManager:
     @classmethod
     def add_list(cls, to_do_list, list_title):
         cls.all_lists[list_title] = to_do_list
-
-    @classmethod
-    def display_lists(cls):
-        for title in cls.all_lists:
-            print("-" + " " + title)
