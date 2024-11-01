@@ -17,11 +17,10 @@ def query_list():
         # not expecting string for key
         select_list()
     else:
-        create_new_list()
+        create_new_list(selected_category)
 
-def create_new_list():
-    print("creating new list")
-    title_input = input("Please enter List Title: ")
+def create_new_list(title_input):
+    print("creating new list: " + title_input)
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     list_id = uuid.uuid1()
