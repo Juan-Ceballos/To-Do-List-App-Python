@@ -1,7 +1,8 @@
 from datetime import datetime
+import to_do_item
 from list_manager import ListManager
 import to_do_list
-import uuid
+from to_do_item import ToDoItem
 from to_do_list import ToDoList
 
 
@@ -20,12 +21,22 @@ def query_list():
         create_new_list(selected_category)
 
 
+# def add_to_dos(curr_list, to_do_input):
+#     while to_do_input.lower() != "exit":
+#         curr_to_do = to_do_item.ToDoItem()
+#         curr_list.add_to_do()
+
+
+
 def create_new_list(title_input):
     print("creating new list: " + title_input)
     now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    list_id = uuid.uuid1()
-    new_list = to_do_list.ToDoList({}, title_input, dt_string, list_id)
+    to_do_input = input("add to dos if done type EXIT")
+    new_list = to_do_list.ToDoList({}, title_input)
+    if to_do_input.lower() != "exit":
+        new_list.add_to_do(to_do_input, new_list.to_do_list_id)
+
+
     ListManager.add_list(new_list, new_list.title)
     print("Displaying all to do lists")
     display_lists(ListManager.all_lists)
