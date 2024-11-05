@@ -15,9 +15,10 @@ def query_list():
     selected_category = input("Type list you want to select or type a new list to start creating: ")
     if selected_category in ListManager.all_lists:
         # not expecting string for key
-        select_list()
+        select_list(selected_category)
     else:
         create_new_list(selected_category)
+
 
 def create_new_list(title_input):
     print("creating new list: " + title_input)
@@ -29,13 +30,16 @@ def create_new_list(title_input):
     print("Displaying all to do lists")
     display_lists(ListManager.all_lists)
 
-def select_list():
+def select_list(title_input):
     print("selecting list: some list")
+    current_list = ListManager.all_lists[title_input]
+    print(current_list.to_do_items)
 
-
+# test commit
 def main():
     print("called main")
     display_lists(ListManager.all_lists)
+    query_list()
     query_list()
 
 if __name__ == '__main__':
