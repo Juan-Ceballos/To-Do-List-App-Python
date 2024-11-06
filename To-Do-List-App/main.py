@@ -21,18 +21,23 @@ def query_list():
         create_new_list(selected_category)
 
 
-# def add_to_dos(curr_list, to_do_input):
-#     while to_do_input.lower() != "exit":
-#         curr_to_do = to_do_item.ToDoItem()
-#         curr_list.add_to_do()
+def add_to_dos(curr_list):
+    description_inquiry = input("Please add to do description or enter /f to finish: ")
+    if description_inquiry != "/f":
+
+        curr_to_do = to_do_item.ToDoItem()
+        curr_list.add_to_do()
 
 
 
 def create_new_list(title_input):
     print("creating new list: " + title_input)
     now = datetime.now()
-    to_do_input = input("add to dos if done type EXIT")
+    add_to_do_inquiry = input("Add To Dos Now? (y/n): ")
     new_list = to_do_list.ToDoList({}, title_input)
+    if add_to_do_inquiry == "y":
+        add_to_dos(new_list)
+
     if to_do_input.lower() != "exit":
         new_list.add_to_do(to_do_input, new_list.to_do_list_id)
 
