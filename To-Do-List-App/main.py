@@ -7,10 +7,11 @@ from to_do_list import ToDoList
 
 
 def display_lists(lists):
-    if len(lists) == 0:
+    num_to_dos = len(lists)
+    if num_to_dos == 0:
         print("Empty")
-    for single_list in lists:
-        print("-" + " " + single_list.title)
+    for num in range(num_to_dos):
+        print(f"{num + 1} {lists[num].title}")
 
 def query_list():
     selected_list = input("Select list by number or enter anything to start a new to do list: ")
