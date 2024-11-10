@@ -22,6 +22,8 @@ def query_list():
         if selected_list > all_list_count:
             print("List does not exist")
             query_list()
+        else:
+            select_list(int(selected_list))
     else:
         create_new_list()
 
@@ -51,9 +53,9 @@ def create_new_list():
     print("Displaying all to do lists")
     display_lists(ListManager.all_lists)
 
-def select_list(title_input):
-    print("selecting list: some list")
-    current_list = ListManager.all_lists[title_input]
+def select_list(num_input):
+    # print("selecting list: some list")
+    current_list = ListManager.all_lists[num_input - 1]
     print(current_list.to_do_items)
 
 # test commit
