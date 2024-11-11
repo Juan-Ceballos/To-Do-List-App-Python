@@ -60,8 +60,8 @@ def create_new_list():
 def select_list(num_input):
     current_list = ListManager.all_lists[num_input - 1]
     print(current_list.title)
-    for item in current_list.to_do_items:
-        print(item.description)
+    for list_num, item in enumerate(current_list.to_do_items):
+        print(f"{list_num + 1} {item.description}")
 
 def main():
     print("called main")
