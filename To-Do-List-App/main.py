@@ -58,10 +58,10 @@ def create_new_list():
     display_lists(ListManager.all_lists)
 
 def select_list(num_input):
-    # does not print titles just references
     current_list = ListManager.all_lists[num_input - 1]
     print(current_list.title)
-    print(current_list.to_do_items)
+    for item in current_list.to_do_items:
+        print(item.description)
 
 def main():
     print("called main")
