@@ -19,7 +19,6 @@ def create_new_list():
     ListManager.all_lists.append(new_list)
     print("Displaying all to do lists")
     display_lists()
-    print("---")
 
 
 def select_list():
@@ -28,16 +27,19 @@ def select_list():
         selected_digit = int(select_query) - 1
         if selected_digit > len(ListManager.all_lists) or selected_digit < 0:
             print("List does not exist going back to main menu")
+            display_lists()
         selected_list = ListManager.all_lists[int(select_query) - 1]
-        for to_do in selected_list.to_do_items:
-            print(f"Here are all your to dos in list {selected_list.title}:")
-            print(to_do.description)
+        print(f"Here are all your to dos in list {selected_list.title}:")
+        print("------------------")
+        for index,to_do in enumerate(selected_list.to_do_items):
+            print(f"{index + 1} {to_do.description}")
+        print("------------------")
     elif select_query == "quit":
         print("Going back to main menu")
+        display_lists()
     else:
         print("Command or input not recognized going back to main menu")
-    display_lists()
-    print("---")
+        display_lists()
 
 def delete_list():
     del_query = input("Please type and enter the number of the list to delete")
@@ -47,7 +49,6 @@ def delete_list():
     else:
         print("do not recognize input going back to main list")
     display_lists()
-    print("---")
 
 def query_list():
     done = False
