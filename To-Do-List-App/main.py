@@ -1,19 +1,15 @@
 from datetime import datetime
-
-import list_manager
-import to_do_item
 from list_manager import ListManager
+import to_do_item
 import to_do_list
-from to_do_item import ToDoItem
-from to_do_list import ToDoList
 
-
-def display_lists(lists):
-    num_to_dos = len(lists)
+def display_lists():
+    main_list = ListManager.all_lists
+    num_to_dos = len(main_list)
     if num_to_dos == 0:
         print("Empty")
     for num in range(num_to_dos):
-        print(f"{num + 1} {lists[num].title}")
+        print(f"{num + 1} {main_list[num].title}")
 
 def create_new_list():
     now = datetime.now()
@@ -22,7 +18,7 @@ def create_new_list():
     new_list.to_do_items = add_to_dos()
     ListManager.all_lists.append(new_list)
     print("Displaying all to do lists")
-    display_lists(ListManager.all_lists)
+    display_lists()
     print("---")
 
 
@@ -40,14 +36,18 @@ def select_list():
         print("Going back to main menu")
     else:
         print("Command or input not recognized going back to main menu")
+    display_lists()
+    print("---")
 
 def delete_list():
     del_query = input("Please type and enter the number of the list to delete")
     if del_query.isdigit():
-        del_num = int(del_query)
+        del_num = int(del_query) - 1
         ListManager.all_lists.pop(del_num)
     else:
         print("do not recognize input going back to main list")
+    display_lists()
+    print("---")
 
 def query_list():
     done = False
@@ -64,9 +64,6 @@ def query_list():
             case "del":
                 delete_list()
 
-
-
-
 def add_to_dos():
     to_do_inputs = []
     done = False
@@ -81,7 +78,7 @@ def add_to_dos():
 
 def main():
     print("called main")
-    display_lists(ListManager.all_lists)
+    display_lists()
     query_list()
 
 if __name__ == '__main__':
