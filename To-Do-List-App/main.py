@@ -20,6 +20,21 @@ def create_new_list():
     print("Displaying all to do lists")
     display_lists()
 
+def display_to_dos(input_list):
+    print(f"{input_list.title}:")
+    print("------------------")
+    for index, to_do in enumerate(input_list.to_do_items):
+        print(f"{index + 1} {to_do.description}")
+    print("------------------")
+    print()
+
+def add_to_do(input_list):
+    print("test add to do")
+    display_to_dos(input_list)
+
+def del_to_do(input_list):
+    display_to_dos(input_list)
+    print("test delete list")
 
 def select_list():
     select_query = input("Please select list number you want to select or type and enter [quit] to go back")
@@ -29,13 +44,28 @@ def select_list():
             print("List does not exist going back to main menu")
             display_lists()
         selected_list = ListManager.all_lists[int(select_query) - 1]
-        print(f"Here are all your to dos in list {selected_list.title}:")
+        print(f"{selected_list.title}:")
         print("------------------")
         for index,to_do in enumerate(selected_list.to_do_items):
             print(f"{index + 1} {to_do.description}")
         print("------------------")
+        to_do_done = False
+        while not to_do_done:
+            print("Add to do press enter")
+            print("to delete a to do type and enter [del]")
+            print("quit to go back to main list")
+            to_do_query = input()
+            match to_do_query:
+                case "":
+                    add_to_do(selected_list)
+                case "del":
+                    del_to_do(selected_list)
+                case "quit":
+                    to_do_done = True
+                    print("Back to main list")
+                    display_lists()
     elif select_query == "quit":
-        print("Going back to main menu")
+        print("Back to main list")
         display_lists()
     else:
         print("Command or input not recognized going back to main menu")
