@@ -101,8 +101,8 @@ def delete_list():
 def query_list():
     done = False
     while not done:
-        selected_list = input("1) Press enter key to start a new list\n2) Type and enter [sel] to pick a list"
-                              "\n3) Type and enter [del] to delete a list\n4) Type and enter [quit] to exit\n")
+        selected_list = input("* To start a new list press key [RETURN]\n* To view a list type and enter [sel]"
+                              "\n* To delete a list type and enter [del]\n* To exit type and enter [quit]\n")
         match selected_list:
             case "quit":
                 done = True
