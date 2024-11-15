@@ -28,13 +28,29 @@ def display_to_dos(input_list):
     print("------------------")
     print()
 
-def add_to_do(input_list):
-    print("test add to do")
-    display_to_dos(input_list)
-
 def del_to_do(input_list):
     display_to_dos(input_list)
     print("test delete list")
+    del_query = input("Please type and enter the number of the to do to delete")
+    if del_query.isdigit():
+        del_num = int(del_query) - 1
+        input_list.to_do_items.pop(del_num)
+    else:
+        print("do not recognize input going back to main list")
+    display_lists()
+
+# return list of todos or mutate list in class?
+def add_to_dos():
+    to_do_inputs = []
+    done = False
+    while not done:
+        description_inquiry = input("Enter to do if done enter DONE: ")
+        if description_inquiry != "DONE":
+            curr_to_do = to_do_item.ToDoItem(description_inquiry)
+            to_do_inputs.append(curr_to_do)
+        else:
+            done = True
+    return to_do_inputs
 
 def select_list():
     select_query = input("Please select list number you want to select or type and enter [quit] to go back")
@@ -57,7 +73,9 @@ def select_list():
             to_do_query = input()
             match to_do_query:
                 case "":
-                    add_to_do(selected_list)
+                    added_to_dos = add_to_dos()
+                    selected_list.to_do_items = selected_list.to_do_items + added_to_dos
+                    display_to_dos(selected_list)
                 case "del":
                     del_to_do(selected_list)
                 case "quit":
@@ -94,18 +112,6 @@ def query_list():
                 select_list()
             case "del":
                 delete_list()
-
-def add_to_dos():
-    to_do_inputs = []
-    done = False
-    while not done:
-        description_inquiry = input("Enter to do if done enter DONE: ")
-        if description_inquiry != "DONE":
-            curr_to_do = to_do_item.ToDoItem(description_inquiry)
-            to_do_inputs.append(curr_to_do)
-        else:
-            done = True
-    return to_do_inputs
 
 def main():
     print("called main")
