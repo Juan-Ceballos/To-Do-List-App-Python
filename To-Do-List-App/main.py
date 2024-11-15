@@ -31,7 +31,7 @@ def display_to_dos(input_list):
 def del_to_do(input_list):
     display_to_dos(input_list)
     print("test delete list")
-    del_query = input("Please type and enter the number of the to do to delete")
+    del_query = input("Please type and enter the number to delete")
     if del_query.isdigit():
         del_num = int(del_query) - 1
         input_list.to_do_items.pop(del_num)
@@ -44,7 +44,7 @@ def add_to_dos():
     to_do_inputs = []
     done = False
     while not done:
-        description_inquiry = input("Enter to do if done enter DONE: ")
+        description_inquiry = input("Type and enter your to dos, when done type and enter [DONE]: ")
         if description_inquiry != "DONE":
             curr_to_do = to_do_item.ToDoItem(description_inquiry)
             to_do_inputs.append(curr_to_do)
@@ -53,11 +53,12 @@ def add_to_dos():
     return to_do_inputs
 
 def select_list():
-    select_query = input("Please select list number you want to select or type and enter [quit] to go back")
+    display_lists()
+    select_query = input("* Please select number you want to select\n* To go back type and enter [quit]\n")
     if select_query.isdigit():
         selected_digit = int(select_query) - 1
         if selected_digit > len(ListManager.all_lists) or selected_digit < 0:
-            print("List does not exist going back to main menu")
+            print("List does not exist going back to main list")
             display_lists()
         selected_list = ListManager.all_lists[int(select_query) - 1]
         print(f"{selected_list.title}:")
@@ -67,9 +68,9 @@ def select_list():
         print("------------------")
         to_do_done = False
         while not to_do_done:
-            print("Add to do press enter")
-            print("to delete a to do type and enter [del]")
-            print("quit to go back to main list")
+            print("* Add to do press key [RETURN]")
+            print("* to delete a to do type and enter [del]")
+            print("* back to main list type and enter [quit]")
             to_do_query = input()
             match to_do_query:
                 case "":
@@ -86,11 +87,11 @@ def select_list():
         print("Back to main list")
         display_lists()
     else:
-        print("Command or input not recognized going back to main menu")
+        print("Command or input not recognized going back to main list")
         display_lists()
 
 def delete_list():
-    del_query = input("Please type and enter the number of the list to delete")
+    del_query = input("Type and enter the number you want to delete")
     if del_query.isdigit():
         del_num = int(del_query) - 1
         ListManager.all_lists.pop(del_num)
