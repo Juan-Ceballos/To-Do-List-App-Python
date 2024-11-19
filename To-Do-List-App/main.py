@@ -29,15 +29,14 @@ def display_to_dos(input_list):
     print()
 
 def del_to_do(input_list):
-    display_to_dos(input_list)
-    print("test delete list")
-    del_query = input("Please type and enter the number to delete")
+    del_query = input("Type and enter the number to delete:\n")
     if del_query.isdigit():
         del_num = int(del_query) - 1
         input_list.to_do_items.pop(del_num)
+        display_to_dos(input_list)
     else:
         print("do not recognize input going back to main list")
-    display_lists()
+        display_lists()
 
 # return list of todos or mutate list in class?
 def add_to_dos():
@@ -54,7 +53,7 @@ def add_to_dos():
 
 def select_list():
     display_lists()
-    select_query = input("* Please select number you want to select\n* To go back type and enter [quit]\n")
+    select_query = input("* Please type number you want to select\n* To go back type and enter [quit]\n")
     if select_query.isdigit():
         selected_digit = int(select_query) - 1
         if selected_digit > len(ListManager.all_lists) or selected_digit < 0:
@@ -91,7 +90,7 @@ def select_list():
         display_lists()
 
 def delete_list():
-    del_query = input("Type and enter the number you want to delete")
+    del_query = input("Type and enter the number you want to delete:\n")
     if del_query.isdigit():
         del_num = int(del_query) - 1
         ListManager.all_lists.pop(del_num)
