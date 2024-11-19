@@ -1,7 +1,7 @@
 from datetime import datetime
 from list_manager import ListManager
-import to_do_item
-import to_do_list
+from to_do_item import ToDoItem
+from to_do_list import ToDoList
 
 def display_lists():
     main_list = ListManager.all_lists
@@ -12,9 +12,9 @@ def display_lists():
         print(f"{num + 1} {main_list[num].title}")
 
 def create_new_list():
-    now = datetime.now()
+    now = datetime.now() # what am i doing with this
     title_input = input("Please enter to do list title: ")
-    new_list = to_do_list.ToDoList({}, title_input)
+    new_list = ToDoList({}, title_input)
     new_list.to_do_items = add_to_dos()
     ListManager.all_lists.append(new_list)
     print("Displaying all to do lists")
@@ -45,7 +45,7 @@ def add_to_dos():
     while not done:
         description_inquiry = input("Type and enter your to dos, when done type and enter [DONE]: ")
         if description_inquiry != "DONE":
-            curr_to_do = to_do_item.ToDoItem(description_inquiry)
+            curr_to_do = ToDoItem(description_inquiry)
             to_do_inputs.append(curr_to_do)
         else:
             done = True
