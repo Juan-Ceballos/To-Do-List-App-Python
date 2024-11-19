@@ -3,6 +3,8 @@ from list_manager import ListManager
 from to_do_item import ToDoItem
 from to_do_list import ToDoList
 
+
+
 def display_lists():
     main_list = ListManager.all_lists
     num_to_dos = len(main_list)
@@ -19,6 +21,37 @@ def create_new_list():
     ListManager.all_lists.append(new_list)
     print("Displaying all to do lists")
     display_lists()
+
+# due date function
+# takes inputs for the due date of a todo
+# month/day/year
+def valid_year(year):
+    now = datetime.now()
+    if year.isdigit():
+        if int(year) >= now.year:
+            return True
+    return False
+
+def valid_month(month):
+    now = datetime.now()
+    if month.isdigit():
+        if int(month) >= now.month and int(month) > 0 and month < 13:
+            return True
+    return False
+
+def valid_day(day):
+    now = datetime.now()
+    if day.isdigit():
+
+
+def query_due_date():
+    year_query = input("Enter Year:\n")
+    while not valid_year(year_query):
+        year_query = input("Year not valid try again:\n")
+
+    month_query = input("Enter Month:\n")
+    day_query = input("Enter Day:\n")
+
 
 def display_to_dos(input_list):
     print(f"{input_list.title}:")
@@ -115,6 +148,7 @@ def query_list():
 
 def main():
     print("called main")
+    query_due_date()
     display_lists()
     query_list()
 
