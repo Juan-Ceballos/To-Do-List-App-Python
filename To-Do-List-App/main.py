@@ -40,14 +40,11 @@ def valid_month(month):
     return False
 
 def valid_day(year, month, day):
-    last_day = calendar.monthrange(year.year, month.month)[1]
+    last_day = calendar.monthrange(year, month)[1]
     if day.isdigit():
         if day > 0 and last_day >= day >= month.day:
             return True
     return False
-
-def valid_date(year, month, day):
-    return valid_year(year) and valid_month(month) and valid_day(month, day)
 
 def query_year():
     year_query = input("Enter Year or type [quit]:\n")
@@ -65,25 +62,38 @@ def query_due_date():
     year_to_check = query_year()
     while not valid_year(year_to_check):
         if year_to_check == "quit":
-            return
+            return year_to_check
         year_to_check = query_year()
     month_to_check = query_month()
     while not valid_month(month_to_check):
         if month_to_check == "quit":
-            return
+            return month_to_check
         month_to_check = query_month()
     day_to_check = query_day()
-    while not valid_day(month_to_check, day_to_check):
+    while not valid_day(int(year_to_check), int(month_to_check), day_to_check):
         if day_to_check == "quit":
-            return
+            return day_to_check
         day_to_check = query_day()
 
+    if len(month_to_check) == 1:
+        month_to_check = f"0{month_to_check}"
+    if len(day_to_check) == 1:
+        day_to_check = f"0{day_to_check}"
 
+    return f"{month_to_check}/{day_to_check}/{year_to_check}"
 
+# return list of todos or mutate list in class?
+def query_to_dos():
+    description_inquiry = input("Type and enter description of to-do or [quit]:\n")
+    if description_inquiry == "quit":
+        return
+    due_date_inquiry = query_due_date()
+    if due_date_inquiry == "quit":
+        return
+    return description_inquiry, due_date_inquiry
 
+def add_to_dos_2(description, due_date):
 
-    month_query = input("Enter Month:\n")
-    day_query = input("Enter Day:\n")
 
 
 def display_to_dos(input_list):
@@ -103,19 +113,6 @@ def del_to_do(input_list):
     else:
         print("do not recognize input going back to main list")
         display_lists()
-
-# return list of todos or mutate list in class?
-def add_to_dos():
-    to_do_inputs = []
-    done = False
-    while not done:
-        description_inquiry = input("Type and enter your to dos, when done type and enter [DONE]: ")
-        if description_inquiry != "DONE":
-            curr_to_do = ToDoItem(description_inquiry)
-            to_do_inputs.append(curr_to_do)
-        else:
-            done = True
-    return to_do_inputs
 
 def select_list():
     display_lists()
