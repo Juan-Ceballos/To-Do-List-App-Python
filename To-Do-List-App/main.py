@@ -1,8 +1,8 @@
 from datetime import datetime
+import calendar
 from list_manager import ListManager
 from to_do_item import ToDoItem
 from to_do_list import ToDoList
-
 
 
 def display_lists():
@@ -39,15 +39,48 @@ def valid_month(month):
             return True
     return False
 
-def valid_day(day):
-    now = datetime.now()
+def valid_day(year, month, day):
+    last_day = calendar.monthrange(year.year, month.month)[1]
     if day.isdigit():
+        if day > 0 and last_day >= day >= month.day:
+            return True
+    return False
 
+def valid_date(year, month, day):
+    return valid_year(year) and valid_month(month) and valid_day(month, day)
+
+def query_year():
+    year_query = input("Enter Year or type [quit]:\n")
+    return year_query
+
+def query_month():
+    month_query = input("Enter Month or type [quit]:\n")
+    return month_query
+
+def query_day():
+    day_query = input("Enter day or type [quit]:\n")
+    return day_query
 
 def query_due_date():
-    year_query = input("Enter Year:\n")
-    while not valid_year(year_query):
-        year_query = input("Year not valid try again:\n")
+    year_to_check = query_year()
+    while not valid_year(year_to_check):
+        if year_to_check == "quit":
+            return
+        year_to_check = query_year()
+    month_to_check = query_month()
+    while not valid_month(month_to_check):
+        if month_to_check == "quit":
+            return
+        month_to_check = query_month()
+    day_to_check = query_day()
+    while not valid_day(month_to_check, day_to_check):
+        if day_to_check == "quit":
+            return
+        day_to_check = query_day()
+
+
+
+
 
     month_query = input("Enter Month:\n")
     day_query = input("Enter Day:\n")
