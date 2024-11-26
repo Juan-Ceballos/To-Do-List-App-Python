@@ -14,10 +14,9 @@ def display_lists():
         print(f"{num + 1} {main_list[num].title}")
 
 def create_new_list():
-    now = datetime.now() # what am i doing with this
     title_input = input("Please enter to do list title: ")
     new_list = ToDoList({}, title_input)
-    new_list.to_do_items = add_to_dos()
+    new_list.to_do_items = add_to_dos_2()
     ListManager.all_lists.append(new_list)
     print("Displaying all to do lists")
     display_lists()
@@ -83,24 +82,30 @@ def query_due_date():
     return f"{month_to_check}/{day_to_check}/{year_to_check}"
 
 # return list of todos or mutate list in class?
-def query_to_dos():
+def query_to_do():
     description_inquiry = input("Type and enter description of to-do or [quit]:\n")
     if description_inquiry == "quit":
         return
     due_date_inquiry = query_due_date()
     if due_date_inquiry == "quit":
         return
-    return description_inquiry, due_date_inquiry
+    to_do_item_inquiry = ToDoItem(description_inquiry, due_date_inquiry)
+    return to_do_item_inquiry
 
-def add_to_dos_2(description, due_date):
-
-
+def add_to_dos_2():
+    all_to_dos = []
+    curr_to_do = query_to_do()
+    while curr_to_do is not None:
+        all_to_dos.append(curr_to_do)
+        curr_to_do = query_to_do()
+    return all_to_dos
 
 def display_to_dos(input_list):
     print(f"{input_list.title}:")
     print("------------------")
     for index, to_do in enumerate(input_list.to_do_items):
         print(f"{index + 1} {to_do.description}")
+        print(f"{index + 1} {to_do.due_date}")
     print("------------------")
     print()
 
@@ -127,6 +132,7 @@ def select_list():
         print("------------------")
         for index,to_do in enumerate(selected_list.to_do_items):
             print(f"{index + 1} {to_do.description}")
+            print(f"{index + 1} {to_do.due_date}")
         print("------------------")
         to_do_done = False
         while not to_do_done:
@@ -136,6 +142,7 @@ def select_list():
             to_do_query = input()
             match to_do_query:
                 case "":
+                    # TODO: next part
                     added_to_dos = add_to_dos()
                     selected_list.to_do_items = selected_list.to_do_items + added_to_dos
                     display_to_dos(selected_list)
