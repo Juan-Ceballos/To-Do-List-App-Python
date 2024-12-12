@@ -4,7 +4,7 @@ from list_manager import ListManager
 from to_do_item import ToDoItem
 from to_do_list import ToDoList
 
-
+# most main features maybe adjust test after changes and add user input guards
 def display_lists():
     main_list = ListManager.all_lists
     num_to_dos = len(main_list)
@@ -143,7 +143,6 @@ def select_list():
             to_do_query = input()
             match to_do_query:
                 case "":
-                    # TODO: next part
                     added_to_dos = add_to_dos_2()
                     selected_list.to_do_items = selected_list.to_do_items + added_to_dos
                     display_to_dos(selected_list)
