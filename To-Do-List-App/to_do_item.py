@@ -8,4 +8,5 @@ class ToDoItem(object):
 
         self.description = description
         self.date_created = dt_string
+        self.due_date = due_date
         self.to_do_id = uuid.uuid1()

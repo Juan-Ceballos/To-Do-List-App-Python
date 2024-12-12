@@ -34,14 +34,15 @@ def valid_year(year):
 def valid_month(month):
     now = datetime.now()
     if month.isdigit():
-        if int(month) >= now.month and int(month) > 0 and month < 13:
+        if now.month <= int(month) < 13 and int(month) > 0:
             return True
     return False
 
 def valid_day(year, month, day):
+    now = datetime.now()
     last_day = calendar.monthrange(year, month)[1]
     if day.isdigit():
-        if day > 0 and last_day >= day >= month.day:
+        if int(day) > 0 and last_day >= int(day) >= now.day:
             return True
     return False
 
@@ -105,7 +106,7 @@ def display_to_dos(input_list):
     print("------------------")
     for index, to_do in enumerate(input_list.to_do_items):
         print(f"{index + 1} {to_do.description}")
-        print(f"{index + 1} {to_do.due_date}")
+        print(f"Due: {to_do.due_date}")
     print("------------------")
     print()
 
@@ -143,7 +144,7 @@ def select_list():
             match to_do_query:
                 case "":
                     # TODO: next part
-                    added_to_dos = add_to_dos()
+                    added_to_dos = add_to_dos_2()
                     selected_list.to_do_items = selected_list.to_do_items + added_to_dos
                     display_to_dos(selected_list)
                 case "del":
@@ -185,7 +186,7 @@ def query_list():
 
 def main():
     print("called main")
-    query_due_date()
+    # query_due_date()
     display_lists()
     query_list()
 
