@@ -18,12 +18,10 @@ def create_new_list():
     new_list = ToDoList({}, title_input)
     new_list.to_do_items = add_to_dos_2()
     ListManager.all_lists.append(new_list)
+    # TODO: See how else I can arrange below
     print("Displaying all to do lists")
     display_lists()
 
-# due date function
-# takes inputs for the due date of a todo
-# month/day/year
 def valid_year(year):
     now = datetime.now()
     if year.isdigit():
@@ -93,6 +91,7 @@ def query_to_do():
     to_do_item_inquiry = ToDoItem(description_inquiry, due_date_inquiry)
     return to_do_item_inquiry
 
+# TODO: add message that lets user know theyre starting another todo or done
 def add_to_dos_2():
     all_to_dos = []
     curr_to_do = query_to_do()
@@ -105,10 +104,9 @@ def display_to_dos(input_list):
     print(f"{input_list.title}:")
     print("------------------")
     for index, to_do in enumerate(input_list.to_do_items):
-        print(f"{index + 1} {to_do.description}")
+        print(f"{index + 1} - {to_do.description}")
         print(f"Due: {to_do.due_date}")
-    print("------------------")
-    print()
+        print("------------------")
 
 def del_to_do(input_list):
     del_query = input("Type and enter the number to delete:\n")
@@ -129,12 +127,7 @@ def select_list():
             print("List does not exist going back to main list")
             display_lists()
         selected_list = ListManager.all_lists[int(select_query) - 1]
-        print(f"{selected_list.title}:")
-        print("------------------")
-        for index,to_do in enumerate(selected_list.to_do_items):
-            print(f"{index + 1} {to_do.description}")
-            print(f"{index + 1} {to_do.due_date}")
-        print("------------------")
+        display_to_dos(selected_list)
         to_do_done = False
         while not to_do_done:
             print("* Add to do press key [RETURN]")
