@@ -16,9 +16,8 @@ def display_lists():
 def create_new_list():
     title_input = input("Please enter to do list title: ")
     new_list = ToDoList({}, title_input)
-    new_list.to_do_items = add_to_dos_2()
+    new_list.to_do_items = add_to_dos()
     ListManager.all_lists.append(new_list)
-    # TODO: See how else I can arrange below
     print("Displaying all to do lists")
     display_lists()
 
@@ -80,7 +79,6 @@ def query_due_date():
 
     return f"{month_to_check}/{day_to_check}/{year_to_check}"
 
-# return list of todos or mutate list in class?
 def query_to_do():
     description_inquiry = input("Type and enter description of to-do or [quit]:\n")
     if description_inquiry == "quit":
@@ -91,12 +89,12 @@ def query_to_do():
     to_do_item_inquiry = ToDoItem(description_inquiry, due_date_inquiry)
     return to_do_item_inquiry
 
-# TODO: add message that lets user know theyre starting another todo or done
-def add_to_dos_2():
+def add_to_dos():
     all_to_dos = []
     curr_to_do = query_to_do()
     while curr_to_do is not None:
         all_to_dos.append(curr_to_do)
+        print("Done! Starting next to-do:\n")
         curr_to_do = query_to_do()
     return all_to_dos
 
@@ -136,7 +134,7 @@ def select_list():
             to_do_query = input()
             match to_do_query:
                 case "":
-                    added_to_dos = add_to_dos_2()
+                    added_to_dos = add_to_dos()
                     selected_list.to_do_items = selected_list.to_do_items + added_to_dos
                     display_to_dos(selected_list)
                 case "del":
@@ -178,7 +176,6 @@ def query_list():
 
 def main():
     print("called main")
-    # query_due_date()
     display_lists()
     query_list()
 
