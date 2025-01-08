@@ -5,15 +5,30 @@ from to_do_item import ToDoItem
 from to_do_list import ToDoList
 
 # most main features maybe adjust test after changes and add user input guards
-def display_lists():
-    main_list = ListManager.all_lists
-    num_to_dos = len(main_list)
+
+def display_lists() -> None:
+    """
+    Prints all ToDoList titles
+
+    A function that uses the ListManager class's array property
+    all_lists and checks if the list size is greater than 0, if so prints "Empty" else prints
+    each title property of each ToDoList element in a list format
+    """
+    num_to_dos = len(ListManager.all_lists)
     if num_to_dos == 0:
         print("Empty")
     for num in range(num_to_dos):
-        print(f"{num + 1} {main_list[num].title}")
+        print(f"{num + 1} {ListManager.all_lists[num].title}")
 
-def create_new_list():
+def create_new_list() -> None:
+    """
+    Creates a ToDoList object and adds it to the ListManager all_lists property
+    and calls the display_list function to show all list including the new one
+
+    A function that takes user input for a title of a To-Do List, then creates an instance of
+    a ToDoList class, it then sets the ToDoList to_do_items property and the title using the
+    user input, finally it adds this instance to the all_lists property of the ListManager class
+    """
     title_input = input("Please enter to do list title: ")
     new_list = ToDoList({}, title_input)
     new_list.to_do_items = add_to_dos()
@@ -21,21 +36,31 @@ def create_new_list():
     print("Displaying all to do lists")
     display_lists()
 
-def valid_year(year):
+def valid_year(year) -> bool:
+    """
+    Checks if year is valid
+
+    A function that takes a str value type named year and uses the datetime extension
+    to check if the year inputted by user is greater than or equal to the current year
+
+    :param year: str representing year inputted by user
+    :return: bool that is true if year param is greater than or equal
+             current year, else false
+    """
     now = datetime.now()
     if year.isdigit():
         if int(year) >= now.year:
             return True
     return False
 
-def valid_month(month):
+def valid_month(month) -> bool:
     now = datetime.now()
     if month.isdigit():
         if now.month <= int(month) < 13 and int(month) > 0:
             return True
     return False
 
-def valid_day(year, month, day):
+def valid_day(year, month, day) -> bool:
     now = datetime.now()
     last_day = calendar.monthrange(year, month)[1]
     if day.isdigit():
@@ -43,19 +68,19 @@ def valid_day(year, month, day):
             return True
     return False
 
-def query_year():
+def query_year() -> str:
     year_query = input("Enter Year or type [quit]:\n")
     return year_query
 
-def query_month():
+def query_month() -> str:
     month_query = input("Enter Month or type [quit]:\n")
     return month_query
 
-def query_day():
+def query_day() -> str:
     day_query = input("Enter day or type [quit]:\n")
     return day_query
 
-def query_due_date():
+def query_due_date() -> str:
     year_to_check = query_year()
     while not valid_year(year_to_check):
         if year_to_check == "quit":
@@ -79,7 +104,7 @@ def query_due_date():
 
     return f"{month_to_check}/{day_to_check}/{year_to_check}"
 
-def query_to_do():
+def query_to_do() -> ToDoItem or None:
     description_inquiry = input("Type and enter description of to-do or [quit]:\n")
     if description_inquiry == "quit":
         return
@@ -89,7 +114,7 @@ def query_to_do():
     to_do_item_inquiry = ToDoItem(description_inquiry, due_date_inquiry)
     return to_do_item_inquiry
 
-def add_to_dos():
+def add_to_dos() -> [ToDoItem]:
     all_to_dos = []
     curr_to_do = query_to_do()
     while curr_to_do is not None:
