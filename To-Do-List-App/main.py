@@ -41,10 +41,11 @@ def valid_year(year) -> bool:
     Checks if year is valid
 
     A function that takes a str value type named year and uses the datetime extension
-    to check if the year inputted by user is greater than or equal to the current year
+    to check if the year param inputted by user is a digit if so then
+    is greater than or equal to the current year
 
     :param year: str representing year inputted by user
-    :return: bool that is true if year param is greater than or equal
+    :return: bool that is true if year param is digit and greater than or equal
              current year, else false
     """
     now = datetime.now()
@@ -53,10 +54,27 @@ def valid_year(year) -> bool:
             return True
     return False
 
-def valid_month(month) -> bool:
+def valid_month(year, month) -> bool:
+    """
+        Checks if month is valid
+
+        A function that takes a str value type named month and uses the datetime extension
+        to check if the month param inputted by user is a digit if so then
+        checks if month is greater or equal than the current month,
+        and less than 13, if year is greater than current then only checks if month is
+        between 1 and 12 inclusive
+
+        :param year: str representing year inputted by user
+        :param month: str representing month inputted by user
+        :return: bool that is true if month param is digit and greater than or equal
+                 current month, else false
+    """
     now = datetime.now()
-    if month.isdigit():
-        if now.month <= int(month) < 13 and int(month) > 0:
+    if month.isdigit() and year.isdigit():
+        if now.year < int(year):
+            if 13 > month > 0:
+                return True
+        if now.month <= int(month) < 13:
             return True
     return False
 
@@ -87,7 +105,7 @@ def query_due_date() -> str:
             return year_to_check
         year_to_check = query_year()
     month_to_check = query_month()
-    while not valid_month(month_to_check):
+    while not valid_month(year_to_check, month_to_check):
         if month_to_check == "quit":
             return month_to_check
         month_to_check = query_month()
